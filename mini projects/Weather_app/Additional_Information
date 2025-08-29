@@ -1,0 +1,29 @@
+import 'package:flutter/material.dart';
+
+class Additionalinformation extends StatelessWidget {
+  final String text;
+  final String value;
+  final IconData icon;
+  const Additionalinformation({
+    super.key,
+    required this.text,
+    required this.value,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Icon(icon, size: 30),
+        SizedBox(height: 10),
+        Text(text),
+        SizedBox(height: 5),
+        Text(
+          value,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        ),
+      ],
+    );
+  }
+}
