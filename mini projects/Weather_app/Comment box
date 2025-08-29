@@ -1,0 +1,70 @@
+// ignore: file_names
+import 'package:flutter/material.dart';
+
+// ignore: camel_case_types
+class commentBox extends StatefulWidget {
+  const commentBox({super.key});
+
+  @override
+  State<commentBox> createState() => _commentBoxState();
+}
+
+// ignore: camel_case_types
+class _commentBoxState extends State<commentBox> {
+  bool isLiked = false;
+  bool isdisLiked = false;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Container(
+        width: 500,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(40)),
+        child: Padding(
+          padding: const EdgeInsets.all(10.10),
+          child: Row(
+            children: [
+              Column(
+                children: [
+                  Text('Did you like our service', style: TextStyle()),
+                  SizedBox(height: 10),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isLiked = !isLiked;
+                        if (isLiked) isdisLiked = !isLiked;
+                      });
+                    },
+                    icon: Icon(
+                      isLiked ? Icons.thumb_up : Icons.thumb_up_alt_outlined,
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
+                child: Column(
+                  children: [
+                    SizedBox(height: 30),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isdisLiked = !isdisLiked;
+                          if (isdisLiked) isLiked = !isdisLiked;
+                        });
+                      },
+                      icon: Icon(
+                        isdisLiked
+                            ? Icons.thumb_down
+                            : Icons.thumb_down_alt_outlined,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
