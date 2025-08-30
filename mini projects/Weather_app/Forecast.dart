@@ -16,38 +16,56 @@ class Forecast extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final screen1 = MediaQuery.of(context).size.width;
+
+    final iconSize = screen1 * 0.08;
+    final padding = screen1 * 0.03;
+    final spacing = screen1 * 0.01;
+
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Card(
-          elevation: 20,
-          child: Container(
-            width: 250,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Text(
-                  time,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 8),
-                Icon(icon, size: 32),
-                SizedBox(height: 8),
-                Text(value),
-              ],
+        Expanded(
+          child: Card(
+            elevation: 20,
+            child: Padding(
+              padding: EdgeInsets.all(padding),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    time,
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: spacing),
+                  Icon(icon, size: iconSize),
+                  SizedBox(height: spacing),
+                  Text(value, style: TextStyle(fontSize: 15)),
+                ],
+              ),
             ),
           ),
         ),
-        Card(
-          elevation: 20,
-          child: Container(
-            width: 100,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [Text(date), Text(day), SizedBox(height: 8)],
+        SizedBox(width: padding),
+        Expanded(
+          child: Card(
+            elevation: 20,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              padding: EdgeInsets.all(padding),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(date),
+                  Text(day),
+                  SizedBox(height: 8),
+                  SizedBox(height: screen1 * 0.01),
+                ],
+              ),
             ),
           ),
         ),
@@ -55,3 +73,4 @@ class Forecast extends StatelessWidget {
     );
   }
 }
+
