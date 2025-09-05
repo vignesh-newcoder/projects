@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class Forecast extends StatelessWidget {
   final IconData icon;
   final String time;
-  final String value;
+  final double value;
   final String date;
   final String day;
+  String celcius(double k) {
+    double celcius = k - 273.15;
+    return '${celcius.toStringAsFixed(0)}° C';
+  }
   const Forecast({
     super.key,
     required this.time,
@@ -42,7 +46,7 @@ class Forecast extends StatelessWidget {
                   SizedBox(height: spacing),
                   Icon(icon, size: iconSize),
                   SizedBox(height: spacing),
-                  Text(value, style: TextStyle(fontSize: 15)),
+                  Text(celcius(value), style: TextStyle(fontSize: 15)),
                 ],
               ),
             ),
@@ -73,4 +77,5 @@ class Forecast extends StatelessWidget {
     );
   }
 }
+
 
