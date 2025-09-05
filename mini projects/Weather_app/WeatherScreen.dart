@@ -14,7 +14,7 @@ import 'package:intl/intl.dart';
 class Weatherscreen extends StatefulWidget {
   const Weatherscreen({super.key});
   @override
-  State<Weatherscreen> createState() => _WeatherscreenState(); 
+  State<Weatherscreen> createState() => _WeatherscreenState();
 }
 
 class _WeatherscreenState extends State<Weatherscreen> {
@@ -38,6 +38,11 @@ class _WeatherscreenState extends State<Weatherscreen> {
     } catch (e) {
       throw e.toString();
     }
+  }
+
+  String celcius(double k) {
+    double celcius = k - 273.15;
+    return '${celcius.toStringAsFixed(0)}° C';
   }
 
   @override
@@ -92,7 +97,7 @@ class _WeatherscreenState extends State<Weatherscreen> {
             final climate = data['list'][0]['weather'][0]['main'];
             final pressure = data['list'][0]['main']['pressure'];
             final humidity = data['list'][0]['main']['humidity'];
-            final speed = data['list'][0]['wind']['speed'];
+            double speed = data['list'][0]['wind']['speed'];
             final min = data['list'][0]['main']['temp_min'];
             final max = data['list'][0]['main']['temp_max'];
             final border = OutlineInputBorder(
@@ -172,7 +177,7 @@ class _WeatherscreenState extends State<Weatherscreen> {
                             child: Column(
                               children: [
                                 Text(
-                                  '$currtemp K ',
+                                  celcius(currtemp),
                                   style: TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold,
@@ -226,7 +231,7 @@ class _WeatherscreenState extends State<Weatherscreen> {
                             time: DateFormat.j().format(time1),
                             date: date,
                             day: day,
-                            value: hourlyForecast['main']['temp'].toString(),
+                            value: hourlyForecast['main']['temp'],
                             icon:
                                 climateForecast == 'Clouds' ||
                                     climateForecast == 'Rain'
@@ -254,12 +259,12 @@ class _WeatherscreenState extends State<Weatherscreen> {
                         Additionalinformation(
                           icon: WeatherIcons.humidity,
                           text: 'Humidity',
-                          value: humidity.toString(),
+                          value: '${humidity.toString()}%',
                         ),
                         Additionalinformation(
                           icon: Icons.air,
                           text: 'Wind Speed',
-                          value: speed.toString(),
+                          value: '${(speed * 3.6).toStringAsFixed(0)} km/h',
                         ),
                         Additionalinformation(
                           icon: WeatherIcons.barometer,
@@ -276,12 +281,12 @@ class _WeatherscreenState extends State<Weatherscreen> {
                           Additionalinformation(
                             icon: WeatherIcons.day_cloudy_windy,
                             text: 'Min',
-                            value: min.toString(),
+                            value: celcius(min),
                           ),
                           Additionalinformation(
                             icon: WeatherIcons.day_sunny,
                             text: 'Max',
-                            value: max.toString(),
+                            value: celcius(max),
                           ),
                         ],
                       ),
