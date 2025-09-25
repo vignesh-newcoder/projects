@@ -1,6 +1,3 @@
-// ignore_for_file: file_names
-
-import 'package:calculator/pages/contents_page.dart';
 import 'package:flutter/Material.dart';
 // ignore: unnecessary_import
 import 'package:flutter/rendering.dart';
@@ -20,6 +17,8 @@ class _CalculationState extends State<Calculation> {
   bool isData = false;
   String showingValue = '';
 
+  double? total;
+
   String operator = '';
   @override
   Widget build(BuildContext context) {
@@ -29,18 +28,6 @@ class _CalculationState extends State<Calculation> {
           'Calculator App',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Content()),
-              );
-            },
-            alignment: Alignment.topRight,
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -120,40 +107,44 @@ class _CalculationState extends State<Calculation> {
             operator = '';
             calculatedVAlue = '';
             showingValue = '';
+            total = null;
+            done = false;
           });
         } else if (name == '⌫') {
           setState(() {
-            if ((inputValue.isNotEmpty)) {
+            if (inputValue.isNotEmpty) {
               inputValue = inputValue.substring(0, inputValue.length - 1);
               showingValue = showingValue.substring(0, showingValue.length - 1);
             }
           });
-        } else if (name == '+' ||
-            name == '-' ||
-            name == 'x' ||
-            name == '÷' ||
-            name == '%') {
+        } else if (['+', '-', '%', 'x', '÷'].contains(name)) {
           setState(() {
-            calculatedVAlue = inputValue;
-            inputValue = '';
+            if (total == null && inputValue.isNotEmpty) {
+              total = double.parse(inputValue);
+            } else if (total != null && inputValue.isNotEmpty) {
+              total = double.parse(
+                sum(total!, double.parse(inputValue), operator),
+              );
+            }
             operator = name;
+            inputValue = '';
             showingValue += name;
           });
         } else if (name == '=') {
           setState(() {
-            String result = sum(
-              double.parse(calculatedVAlue),
-              double.parse(inputValue),
-              operator,
-            );
-            inputValue = result;
-            showingValue = result;
-            done = true;
+            if (total != null && inputValue.isNotEmpty) {
+              String result = sum(total!, double.parse(inputValue), operator);
+              showingValue = result;
+              inputValue = result;
+              total = double.parse(result);
+              done = true;
+            }
+            inputValue = '';
+            operator = '';
           });
         } else {
           setState(() {
-            if (done) {
-              operator = '';
+            if (done && operator == '') {
               inputValue = '';
               showingValue = '';
               done = false;
