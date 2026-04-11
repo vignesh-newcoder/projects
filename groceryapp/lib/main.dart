@@ -1,11 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:groceryapp/firebasepages/firebase_options.dart';
-import 'package:groceryapp/pages/initial.dart';
-import 'package:groceryapp/pages/intropage.dart';
+import 'package:groceryapp/orderpages/pages/intropage.dart';
 import 'package:groceryapp/providers/providerofitems.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'orderpages/pages/initial.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,12 +17,14 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => GlobalProvider()),
-    ],
-    child: MyApp(introSeen: introSeen),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => GlobalProvider()),
+      ],
+      child: MyApp(introSeen: introSeen),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

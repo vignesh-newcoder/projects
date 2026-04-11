@@ -6,7 +6,7 @@ import 'level_notifier.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => LevelNotifier(),
+      create: (context) => LevelNotifier(),i
       child: MyApp(),
     ),
   );

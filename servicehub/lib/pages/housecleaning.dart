@@ -6,10 +6,10 @@ class HousecleaningPage extends StatefulWidget {
   const HousecleaningPage({super.key});
 
   @override
-  State<HousecleaningPage> createState() => _ElectricianPageState();
+  State<HousecleaningPage> createState() => _HousecleaningPageState();
 }
 
-class _ElectricianPageState extends State<HousecleaningPage> {
+class _HousecleaningPageState extends State<HousecleaningPage> {
   List<Map<String, dynamic>> details = [
     {
       'name': 'Alex',
@@ -42,7 +42,7 @@ class _ElectricianPageState extends State<HousecleaningPage> {
       appBar: AppBar(
         titleSpacing: 30,
         title: Padding(
-          padding: const EdgeInsets.only(top: 30),
+          padding: const EdgeInsets.only(top: 0),
           child: Text(
             'House Cleaning',
             style: TextStyle(
@@ -173,6 +173,7 @@ void openDialogBox(BuildContext context, String name) {
           children: [
             Text('Are they accepted the service'),
             SizedBox(height: 20),
+            Text('You are about to book the $name for \npluming service'),
             Text.rich(
               TextSpan(
                 text: 'You are about to book the service of ',
@@ -202,7 +203,7 @@ void openDialogBox(BuildContext context, String name) {
                       content: Text("The Requested service has been booked"),
                     ),
                   );
-                   Navigator.of(context).pop();
+                  Navigator.of(context).pop();
                 },
                 child: Text(
                   'Yes',

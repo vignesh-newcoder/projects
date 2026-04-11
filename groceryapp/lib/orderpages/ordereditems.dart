@@ -164,6 +164,9 @@ class _OrderedItemsState extends State<OrderedItems> {
                                           left: 16,
                                           right: 16,
                                         ),
+                                        duration: Duration(
+                                          seconds: 20,
+                                        ),
                                         content: Text(
                                           'Order is Placed  🚚',
                                           style: TextStyle(

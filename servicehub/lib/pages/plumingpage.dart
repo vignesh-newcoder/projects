@@ -1,76 +1,71 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
+import 'package:servicehub/providers/workersproviders.dart';
 
-class Plumingpage extends StatefulWidget {
-  const Plumingpage({super.key});
+class PlumingPage extends StatefulWidget {
+  const PlumingPage({super.key});
 
   @override
-  State<Plumingpage> createState() => _PlumingpageState();
+  State<PlumingPage> createState() => _PlumingPageState();
 }
 
-class _PlumingpageState extends State<Plumingpage> {
-  List<Map<String, dynamic>> details = [
-    {
-      'name': 'Alex',
-      'rating': 5.0,
-      'place': 'Tirupur',
-      'number': '98433433433',
-    },
-    {
-      'name': 'James',
-      'rating': 4.0,
-      'place': 'Tirupur',
-      'number': '98433433433',
-    },
-    {
-      'name': 'Vignesh',
-      'rating': 3.0,
-      'place': 'Tirupur',
-      'number': '98433433433',
-    },
-    {
-      'name': 'Partha',
-      'rating': 2.0,
-      'place': 'Tirupur',
-      'number': '98433433433',
-    }
-  ];
+class _PlumingPageState extends State<PlumingPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        titleSpacing: 30,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 0),
-          child: Text(
-            'Plumbing',
-            style: TextStyle(
-              color: Colors.orangeAccent,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
+    var provider = Provider.of<Workersproviders>(context);
+    String city = provider.city;
+    print(city);
+    List workersOfpluming = provider.workersList;
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('workers')
+            .doc()
+            .collection('workersList')
+            .snapshots(),
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (!snapshot.hasData) {
+            return Center(
+              child: Text('No Workers found on your $city'),
+            );
+          }
+          return Scaffold(
+            appBar: AppBar(
+              titleSpacing: 30,
+              title: Padding(
+                padding: const EdgeInsets.only(top: 0),
+                child: Text(
+                  'Plumbing',
+                  style: TextStyle(
+                    color: Colors.orangeAccent,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
-      body: ListView.builder(
-        itemCount: details.length,
-        itemBuilder: (BuildContext context, int index) {
-          final detail = details[index];
-          return createWidget(
-            context,
-            detail['name'],
-            detail['place'],
-            detail['number'],
-            detail['rating'],
+            body: ListView.builder(
+              itemCount: workersOfpluming.length,
+              itemBuilder: (BuildContext context, int index) {
+                final detail = workersOfpluming[index];
+                return createWidget(context, detail['name'], detail['location'], detail['phno'],
+                    (detail['ratings'] ?? 0).toDouble());
+              },
+            ),
+            // bottomSheet: Text('Workers from $city \n provided by ServiceHub'),
           );
-        },
-      ),
-    );
+        });
   }
 }
 
-Widget createWidget(BuildContext context, String name, String number, String place, double val) {
+Widget createWidget(BuildContext context, String name, String place, int number, double val) {
   return Padding(
     padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
     child: Container(
@@ -87,6 +82,7 @@ Widget createWidget(BuildContext context, String name, String number, String pla
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
+        //esec@ap*23
         children: [
           Text(
             name,
@@ -106,7 +102,7 @@ Widget createWidget(BuildContext context, String name, String number, String pla
             children: [
               Icon(Iconsax.call),
               SizedBox(width: 10, height: 10),
-              Text(number),
+              Text(number.toString()),
             ],
           ),
           SizedBox(height: 20),
@@ -198,6 +194,14 @@ void openDialogBox(BuildContext context, String name) {
                   backgroundColor: Colors.orangeAccent,
                 ),
                 onPressed: () {
+                  //bookingHistory.add("$name booked at ${DateTime.now()}");
+                  // Navigator.pop(context);
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) =>
+                  //           HistoryPage(history: bookingHistory),
+                  //     ));
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text("The Requested service has been booked"),

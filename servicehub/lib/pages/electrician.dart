@@ -38,6 +38,7 @@ class _ElectricianPageState extends State<ElectricianPage> {
   ];
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 30,
@@ -52,19 +53,6 @@ class _ElectricianPageState extends State<ElectricianPage> {
             ),
           ),
         ),
-      ),
-      body: ListView.builder(
-        itemCount: details.length,
-        itemBuilder: (BuildContext context, int index) {
-          final detail = details[index];
-          return createWidget(
-            context,
-            detail['name'],
-            detail['place'],
-            detail['number'],
-            detail['rating'],
-          );
-        },
       ),
     );
   }
