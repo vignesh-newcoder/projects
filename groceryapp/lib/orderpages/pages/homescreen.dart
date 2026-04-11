@@ -1,10 +1,4 @@
-// lib/pages/homescreen.dart
-//
-// ✅ FIXED:
-// 1. Now calls GeneratePdf.generateInvoicePdf() instead of the dead pdfvalue()
-// 2. Shows loading dialog while PDF is being built in background
-// 3. Error handling with SnackBar if PDF fails
-// 4. Removed unused pdfgeneratingjsonfile import
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
