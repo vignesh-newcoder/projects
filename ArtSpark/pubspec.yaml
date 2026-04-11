@@ -88,23 +88,23 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/images/image1.jpg
-    - assets/images/images2.jpg
-    - assets/images/images3.jpg
-    - assets/images/images4.jpg
-    - assets/images/images5.jpg
-    - assets/images/images_inter_01.jpg
-    - assets/images/images_inter_02.jpg
-    - assets/images/images_inter_03.jpg
-    - assets/images/images_inter_04.jpg
-    - assets/images/images_inter_05.jpg
-    - assets/images/images_advance_01.jpg
-    - assets/images/images_advance_02.jpg
-    - assets/images/images_advance_03.jpg
-    - assets/images/images_advance_04.jpg
-    - assets/images/images_advance_05.jpg
-    - assets/images/Background image.jpg
+  # assets:
+  #   - assets/images/image1.jpg
+  #   - assets/images/images2.jpg
+  #   - assets/images/images3.jpg
+  #   - assets/images/images4.jpg
+  #   - assets/images/images5.jpg
+  #   - assets/images/images_inter_01.jpg
+  #   - assets/images/images_inter_02.jpg
+  #   - assets/images/images_inter_03.jpg
+  #   - assets/images/images_inter_04.jpg
+  #   - assets/images/images_inter_05.jpg
+  #   - assets/images/images_advance_01.jpg
+  #   - assets/images/images_advance_02.jpg
+  #   - assets/images/images_advance_03.jpg
+  #   - assets/images/images_advance_04.jpg
+  #   - assets/images/images_advance_05.jpg
+  #   - assets/images/Background image.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
