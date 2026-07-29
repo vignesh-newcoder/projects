@@ -42,7 +42,7 @@ class SignupState extends State<Signup> {
   TextEditingController password = TextEditingController();
   TextEditingController username = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
-
+  bool hide = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,15 +110,41 @@ class SignupState extends State<Signup> {
                     children: [
                       buildLabel("Email Address"),
                       const SizedBox(height: 8),
-                      buildInput("Enter your Email", Icons.email_outlined, email),
+                      buildInput("Enter your email", Icons.email_outlined, email),
                       const SizedBox(height: 20),
                       buildLabel("Password"),
                       const SizedBox(height: 8),
-                      buildInput("Enter your Password", Icons.lock_outline, password),
+                      TextFormField(
+                        controller: password,
+                        obscureText: !hide,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your password',
+                          prefixIcon: Icon(Icons.lock_outline, size: 20),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                hide = !hide;
+                              });
+                            },
+                            icon: hide ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                          filled: true,
+                          fillColor: const Color(0xFFF8F8F8),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
                       const SizedBox(height: 20),
                       buildLabel("Username"),
                       const SizedBox(height: 8),
-                      buildInput("Enter your Username", Icons.person_outline, username),
+                      buildInput("Enter your username", Icons.person_outline, username),
                       const SizedBox(height: 20),
                       buildLabel("Phone Number"),
                       const SizedBox(height: 8),
@@ -146,7 +172,14 @@ class SignupState extends State<Signup> {
 
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text("Signup Successful andd login to continue...."),
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  content: Text("Signup successful and login to continue...."),
                                   backgroundColor: Colors.green,
                                 ),
                               );
@@ -155,6 +188,13 @@ class SignupState extends State<Signup> {
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: Colors.grey,
+                                    ),
+                                  ),
                                   content: Text("Signup failed"),
                                   backgroundColor: Colors.red,
                                 ),

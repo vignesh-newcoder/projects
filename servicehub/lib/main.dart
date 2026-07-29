@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:servicehub/firebase%20files/firebase_options.dart';
 import 'package:servicehub/loginpages/login.dart';
 import 'package:servicehub/pages/initial.dart';
-import 'package:servicehub/providers/provider1.dart';
-import 'package:servicehub/providers/workersproviders.dart';
+import 'package:servicehub/providers/dataprovider.dart';
+import 'package:servicehub/providers/uicreationprovider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +22,7 @@ void main() async {
           create: (_) => DataProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => Workersproviders(),
+          create: (_) => UIcreationProvider(),
         ),
       ],
       child: MyApp(),
@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser != null ? InitialPage() : Login(),
+      //home: InitialPage(),
     );
   }
 }

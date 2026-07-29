@@ -13,7 +13,7 @@ class Login extends StatefulWidget {
 class LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-
+  bool hide = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +70,7 @@ class LoginState extends State<Login> {
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withValues(),
                         blurRadius: 20,
                         offset: const Offset(0, 10),
                       )
@@ -81,11 +81,54 @@ class LoginState extends State<Login> {
                     children: [
                       buildLabel("Email Address"),
                       const SizedBox(height: 8),
-                      buildInput("Enter your Email", Icons.email_outlined, email),
+                      TextFormField(
+                        controller: email,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your email',
+                          prefixIcon: Icon(Icons.email_outlined, size: 20),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                          filled: true,
+                          fillColor: const Color(0xFFF8F8F8),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
                       const SizedBox(height: 20),
                       buildLabel("Password"),
                       const SizedBox(height: 8),
-                      buildInput("Enter your Password", Icons.lock_outline, password),
+                      TextFormField(
+                        controller: password,
+                        obscureText: hide,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your password',
+                          prefixIcon: Icon(Icons.lock_outlined, size: 20),
+                          suffixIcon: IconButton(
+                            icon: !hide ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                hide = !hide;
+                              });
+                            },
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                          filled: true,
+                          fillColor: const Color(0xFFF8F8F8),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(color: Colors.black),
+                          ),
+                        ),
+                      ),
                       const SizedBox(height: 30),
                       SizedBox(
                         width: double.infinity,
@@ -127,6 +170,14 @@ class LoginState extends State<Login> {
                               Navigator.pop(context);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
+                                  backgroundColor: Colors.red,
+                                  clipBehavior: Clip.antiAlias,
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: BorderSide(
+                                        color: Colors.grey,
+                                      )),
                                   content: Text(
                                     "Login failed,Make sure you're SignUp",
                                   ),
@@ -190,28 +241,6 @@ Widget buildLabel(String text) {
       fontSize: 13,
       fontWeight: FontWeight.w600,
       color: Colors.black87,
-    ),
-  );
-}
-
-Widget buildInput(String hint, IconData icon, TextEditingController controller) {
-  return TextFormField(
-    controller: controller,
-    obscureText: hint.toLowerCase().contains("password"),
-    decoration: InputDecoration(
-      hintText: hint,
-      prefixIcon: Icon(icon, size: 20),
-      contentPadding: const EdgeInsets.symmetric(vertical: 16),
-      filled: true,
-      fillColor: const Color(0xFFF8F8F8),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Colors.black),
-      ),
     ),
   );
 }

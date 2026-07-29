@@ -1,10 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:servicehub/pages/firstscreen.dart';
-import 'package:servicehub/pages/history.dart';
+import 'package:servicehub/pages/History/history.dart';
 import 'package:servicehub/pages/profile.dart';
-import 'package:servicehub/providers/workersproviders.dart';
 
 class InitialPage extends StatefulWidget {
   const InitialPage({super.key});
@@ -40,7 +38,6 @@ class _InitialPageState extends State<InitialPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<Workersproviders>(context, listen: false).getUserLocation();
   }
 
   @override
